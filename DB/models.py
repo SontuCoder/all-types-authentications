@@ -1,0 +1,54 @@
+from sqlmodel import SQLModel, Field
+from pydantic import field_validator
+import re
+
+class User(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    username: str = Field(nullable=False, unique=True, index=True)
+    password: str = Field(nullable=False)
+
+class User_Create(SQLModel):
+    username: str
+    password: str
+
+    @field_validator("username")
+    @classmethod
+    def validate_name(cls, value:str):
+        if not value.strip():
+            raise ValueError("Name should be not empty")
+        return value
+
+    @field_validator("password")
+    @classmethod
+    def check_password(cls, value: str):
+
+        checks = {
+            "Minimum 8 characters": lambda v: len(v) >= 8,
+            "At least 1 Capital letter": lambda v: bool(re.search(r"[A-Z]", v)),
+            "At least 1 Number": lambda v: bool(re.search(r"\d", v)),
+            "At least 1 Special character": lambda v: bool(
+                re.search(r"[^A-Za-z0-9\s/]", v)
+            ),
+            "No Spaces": lambda v: not bool(re.search(r"\s", v)),
+            "No Slash": lambda v: "/" not in v
+        }
+
+        errors = []
+
+        for condition, check in checks.items():
+            if not check(value):
+                errors.append(condition)
+
+        if errors:
+            raise ValueError(
+                "Password validation failed: " + ", ".join(errors)
+            )
+
+        return value
+
+class User_Response(SQLModel):
+    id: int
+    username: str
+
+
+
