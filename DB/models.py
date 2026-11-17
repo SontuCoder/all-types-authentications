@@ -1,11 +1,20 @@
 from sqlmodel import SQLModel, Field
 from pydantic import field_validator
 import re
+from datetime import datetime, timezone
 
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     username: str = Field(nullable=False, unique=True, index=True)
     password: str = Field(nullable=False)
+
+class Session_Record(SQLModel, table=True):
+    session_id: str = Field(nullable=False, primary_key=True)
+    user_id: int = Field(nullable=False, foreign_key="user.id", index=True)
+    created_at: datetime = Field(default=lambda: datetime.now(timezone.utc), nullable=False)
+    last_activity_at: datetime = Field(default=lambda: datetime.now(timezone.utc), nullable=False)
+    expires_at: datetime = Field(nullable=False)
+    is_active: bool = Field(default=True, nullable=False)
 
 class User_Create(SQLModel):
     username: str
@@ -49,6 +58,4 @@ class User_Create(SQLModel):
 class User_Response(SQLModel):
     id: int
     username: str
-
-
 
