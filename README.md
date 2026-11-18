@@ -22,7 +22,7 @@ For example, when a user logs into an application using an email address and pas
 ## Types: 
 
 1.	Basic Authentication - [See in details](./Notes/Basic_Authentication.md)
-2.	Session-Based Authentication
+2.	Session-Based Authentication - [See in details](./Notes/Session_Base_Authentication.md)
 3.	Token-Based Authentication
 4.	JWT Authentication
 5.	OAuth 2.0

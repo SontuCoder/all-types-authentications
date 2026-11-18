@@ -6,6 +6,7 @@ from Authentications import basic_route, session_route
 
 @asynccontextmanager
 async def life_cycle(app:FastAPI):
+    print("Table creation start")
     create_tables()
     print("Table Created")
     yield
