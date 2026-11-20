@@ -113,3 +113,5 @@ def get_login(user: User_Create, response: Response, session:Session= Depends(ge
     set_cookie_helper("session_id", session_id, response, 3600)
 
     return User_Response(id=user.id, username=user.username)
+
+

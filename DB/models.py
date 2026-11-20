@@ -59,3 +59,6 @@ class User_Response(SQLModel):
     id: int
     username: str
 
+class User_JWT_Response(SQLModel):
+    access_token: str
+    user: User_Response

@@ -23,13 +23,19 @@ For example, when a user logs into an application using an email address and pas
 
 1.	Basic Authentication - [See in details](./Notes/Basic_Authentication.md)
 2.	Session-Based Authentication - [See in details](./Notes/Session_Base_Authentication.md)
-3.	Token-Based Authentication
-4.	JWT Authentication
-5.	OAuth 2.0
+3.	JWT Authentication
+4.	OAuth 2.0
 6.	OpenID Connect (OIDC)
 7.	API Key Authentication
 8.	Multi-Factor Authentication (MFA)
 9.	Certificate-Based Authentication
 10.	Biometric Authentication
 
-
+## ENV:
+```text
+DB_URL='you db url'
+IsProduction='True/False'
+JWT_SECRET_KEY='long Secrate key'
+JWT_ALGORITHM='HS256/what ever you want'
+ACCESS_TOKEN_EXPIRE_MINUTES='15/30/60/120/...'
+```

@@ -2,11 +2,15 @@ import bcrypt
 from fastapi import Response, Request, HTTPException, status
 from dotenv import load_dotenv
 import os
-
+import jwt
+from datetime import datetime, timezone, timedelta
 
 load_dotenv()
 
 isProd = bool(os.getenv("IsProduction"))
+jwt_secrate = os.getenv("JWT_SECRET_KEY")
+jwt_algo = os.getenv("JWT_ALGORITHM")
+jwt_token_time = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 def hash_pass(password: str) -> str:
     pass_bytes = password.encode("utf-8")
@@ -36,3 +40,23 @@ def get_cookie_helper(cookie_key: str, request: Request)->str:
             detail="You have not this permission"
         )
     return cookie_data.strip()
+
+
+def create_jwt(user_id: int)->str:
+    expire = datetime.now(timezone.utc) + timedelta(
+        minutes=jwt_token_time
+    )
+
+    payload = {
+        "sub": str(user_id),
+        "exp": expire
+    }
+
+    token = jwt.encode(
+        payload,
+        jwt_secrate,
+        algorithm=jwt_algo
+    )
+
+    return token
+

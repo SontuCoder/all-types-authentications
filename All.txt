@@ -1,8 +1,5 @@
 1. Types of Authentication
 No.	Authentication type	Description
-1	Basic Authentication	Username and password sent with each request (usually Base64-encoded).
-2	Session-Based Authentication	Server creates and maintains a session after login.
-3	Token-Based Authentication	Client receives a token and sends it with subsequent requests.
 4	JWT Authentication	Uses JSON Web Tokens to verify users without server-side session storage in typical implementations.
 5	OAuth 2.0	Allows an application to access resources with delegated authorization.
 6	OpenID Connect (OIDC)	Adds an identity layer on top of OAuth 2.0 for user authentication.

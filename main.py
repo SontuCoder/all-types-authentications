@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import uvicorn
 from contextlib import asynccontextmanager
 from DB.db_config import create_tables
-from Authentications import basic_route, session_route
+from Authentications import basic_route, session_route, jwt_route
 
 @asynccontextmanager
 async def life_cycle(app:FastAPI):
@@ -24,6 +24,7 @@ def get_helth():
 
 app.include_router(basic_route)
 app.include_router(session_route)
+app.include_router(jwt_route)
 
 
 if __name__ == "__main__":
